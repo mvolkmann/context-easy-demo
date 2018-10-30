@@ -1,0 +1,33 @@
+$space: 6px;
+$border-radius: $space;
+$padding: $space;
+
+@mixin common() {
+  border: solid lightgray 1px;
+  border-radius: $border-radius;
+  padding: $padding;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+button {
+  @include common();
+  //font-size: 24px;
+}
+
+div {
+  margin-bottom: $space;
+}
+
+input {
+  @include common();
+  margin: 0 $space;
+}
+
+select {
+  @include common();
+  margin-left: $space;
+}
