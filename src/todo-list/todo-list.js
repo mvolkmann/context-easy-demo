@@ -1,59 +1,41 @@
-import React, {useEffect, useReducer, useRef} from 'react';
+import {EasyContext} from 'context-easy';
+import React, {useContext, useEffect, useRef} from 'react';
 import './todo-list.scss';
 
-const initialState = {
-  text: '',
-  todos: []
-  // todo objects in the todos array have id, text, and done properties.
-};
+async function addTodo(context) {
+  const todo = {id: context.nextId, text: context.text, done: false};
+  await context.push('todos', todo);
+  await context.set('text', '');
+  await context.increment('nextId');
+}
 
-let lastId = 0;
+function changeText(context, event) {
+  context.set('text', event.target.value);
+}
 
-function reducer(state, action) {
-  const {text, todos} = state;
-  const {payload, type} = action;
-  switch (type) {
-    case 'add-todo': {
-      const newTodos = todos.concat({id: ++lastId, text, done: false});
-      return {...state, text: '', todos: newTodos};
-    }
-    case 'change-text':
-      return {...state, text: payload};
-    case 'delete-todo': {
-      const id = payload;
-      const newTodos = todos.filter(todo => todo.id !== id);
-      return {...state, todos: newTodos};
-    }
-    case 'toggle-done': {
-      const id = payload;
-      const newTodos = todos.map(
-        todo => (todo.id === id ? {...todo, done: !todo.done} : todo)
-      );
-      return {...state, todos: newTodos};
-    }
-    default:
-      return state;
-  }
+function deleteTodo(context, id) {
+  context.filter('todos', todo => todo.id !== id);
+}
+
+function toggleDone(context, id) {
+  context.map(
+    'todos',
+    todo => (todo.id === id ? {...todo, done: !todo.done} : todo)
+  );
 }
 
 export default function TodoList() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const context = useContext(EasyContext);
 
   const inputRef = useRef();
   useEffect(() => inputRef.current.focus());
 
-  const deleteCountRef = useRef(0);
-
-  const handleAdd = () => dispatch({type: 'add-todo'});
-  const handleDelete = id => {
-    deleteCountRef.current++;
-    dispatch({type: 'delete-todo', payload: id});
-    console.log('You have now deleted', deleteCountRef.current, 'todos.');
-  };
+  // Should all of these use `useCallback`?
+  const handleAdd = () => addTodo(context);
+  const handleDelete = id => deleteTodo(context, id);
   const handleSubmit = e => e.preventDefault(); // prevents form submit
-  const handleText = e =>
-    dispatch({type: 'change-text', payload: e.target.value});
-  const handleToggleDone = id => dispatch({type: 'toggle-done', payload: id});
+  const handleText = e => changeText(context, e);
+  const handleToggleDone = id => toggleDone(context, id);
 
   return (
     <div className="todo-list">
@@ -64,12 +46,14 @@ export default function TodoList() {
             placeholder="todo text"
             onChange={handleText}
             ref={inputRef}
-            value={state.text}
+            value={context.text}
           />
         </label>
-        <button onClick={handleAdd}>+</button>
+        <button disabled={context.text === ''} onClick={handleAdd}>
+          +
+        </button>
       </form>
-      {state.todos.map(todo => (
+      {context.todos.map(todo => (
         <div className="todo" key={todo.id}>
           <input
             type="checkbox"
