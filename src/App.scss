@@ -18,6 +18,11 @@ button {
   //font-size: 24px;
 }
 
+.checkboxes, .radio-buttons {
+  @include common();
+  border-color: red;
+}
+
 div {
   margin-bottom: $space;
 }
@@ -30,4 +35,11 @@ input {
 select {
   @include common();
   margin-left: $space;
+}
+
+textarea {
+  @include common();
+  display: block;
+  margin-top: 5px;
+  width: 95%;
 }
