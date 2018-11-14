@@ -8,9 +8,14 @@ $padding: $space;
   padding: $padding;
 }
 
+.block {
+  display: block;
+}
+
 body {
   font-family: sans-serif;
   font-size: 14px;
+  margin: $space;
 }
 
 button {
@@ -18,7 +23,8 @@ button {
   //font-size: 24px;
 }
 
-.checkboxes, .radio-buttons {
+.checkboxes,
+.radio-buttons {
   @include common();
   border-color: red;
 }
@@ -26,10 +32,18 @@ button {
 div {
   margin-bottom: $space;
 }
+div:last-child {
+  margin-bottom: 0;
+}
 
 input {
   @include common();
-  margin: 0 $space;
+  margin-right: $space;
+}
+
+input[type=checkbox],
+input[type=radio] {
+  vertical-align: -2px;
 }
 
 select {
@@ -41,5 +55,5 @@ textarea {
   @include common();
   display: block;
   margin-top: 5px;
-  width: 95%;
+  width: calc(100% - #{$space} * 2);
 }
