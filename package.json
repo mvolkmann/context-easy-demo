@@ -1,7 +1,6 @@
 {
   "name": "context-easy-demo",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "build": "react-scripts build",
     "format": "prettier --write 'src/**/*.{js,scss}'",
@@ -22,7 +21,7 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "context-easy": "^0.4.1",
+    "context-easy": "^0.4.2",
     "node-sass": "^4.10.0",
     "react": "16.7.0-alpha.0",
     "react-dom": "16.7.0-alpha.0",

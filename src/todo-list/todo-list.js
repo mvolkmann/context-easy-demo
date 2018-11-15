@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 
-import {EasyContext, Input} from '../context-easy';
+import {EasyContext, Input} from 'context-easy';
 
 import './todo-list.scss';
 
