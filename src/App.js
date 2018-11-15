@@ -1,4 +1,4 @@
-import {EasyProvider} from 'context-easy';
+import {EasyProvider} from './context-easy';
 import React from 'react';
 import FormDemo from './form-demo';
 import TodoList from './todo-list/todo-list';

@@ -1,4 +1,4 @@
-import {Checkboxes, RadioButtons, Select, TextArea} from 'context-easy';
+import {Checkboxes, RadioButtons, Select, TextArea} from './context-easy';
 import React from 'react';
 
 const checkboxList = [
