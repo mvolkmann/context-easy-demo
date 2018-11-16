@@ -11,8 +11,9 @@ const initialState = {
 };
 
 export default function App() {
+  const options = {log: true, validate: true};
   return (
-    <EasyProvider initialState={initialState} log validate>
+    <EasyProvider initialState={initialState} options={options}>
       <TodoList />
       <FormDemo />
     </EasyProvider>
