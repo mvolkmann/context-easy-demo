@@ -1,6 +1,7 @@
-import React, {useContext} from 'react';
-
 import {EasyContext, Input} from 'context-easy';
+import React, {useCallback, useContext, useRef} from 'react';
+import EffectsDemo from '../effects';
+import Percent from '../percent';
 
 import './todo-list.scss';
 
@@ -23,15 +24,25 @@ function toggleDone(context, id) {
 
 export default function TodoList() {
   const context = useContext(EasyContext);
+  const deleteCountRef = useRef(0); // initial value is zero
 
-  //const inputRef = useRef();
-  //useEffect(() => inputRef.current.focus());
+  const handleAdd = useCallback(() => addTodo(context), [context]);
 
-  // Should all of these use `useCallback`?
-  const handleAdd = () => addTodo(context);
-  const handleDelete = id => deleteTodo(context, id);
-  const handleSubmit = e => e.preventDefault(); // prevents form submit
-  const handleToggleDone = id => toggleDone(context, id);
+  const handleDelete = useCallback(id => {
+    deleteTodo(context, id);
+    deleteCountRef.current++;
+    console.log('You have deleted', deleteCountRef.current, 'todos.');
+  }, []);
+
+  // Prevent form submit.
+  const handleSubmit = useCallback(e => e.preventDefault(), []);
+
+  const handleToggleDone = useCallback(id => toggleDone(context, id), []);
+
+  const doneCount = context.todos.reduce(
+    (sum, todo) => sum + (todo.done ? 1 : 0),
+    0
+  );
 
   return (
     <div className="todo-list">
@@ -59,6 +70,12 @@ export default function TodoList() {
           </button>
         </div>
       ))}
+      <EffectsDemo count={context.todos.length} />
+      <Percent
+        count={doneCount}
+        total={context.todos.length}
+        millis={Date.now()}
+      />
     </div>
   );
 }

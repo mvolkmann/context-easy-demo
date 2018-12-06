@@ -1,0 +1,21 @@
+.todo-list {
+  .delete-btn {
+    background-color: transparent;
+    border: none;
+    color: red;
+    font-weight: bold;
+  }
+
+  .done-true {
+    color: gray;
+    text-decoration: line-through;
+  }
+
+  form {
+    margin-bottom: 10px;
+  }
+
+  .todo {
+    margin-bottom: 0;
+  }
+}
