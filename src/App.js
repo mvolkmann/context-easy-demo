@@ -11,13 +11,10 @@ const initialState = {
   todos: []
 };
 
-export default function App() {
-  const options = {log: true, validate: true};
-  return (
-    <EasyProvider initialState={initialState} options={options}>
-      <TodoList />
-      <FormDemo />
-      <TodoListReducer />
-    </EasyProvider>
-  );
-}
+export default () => (
+  <EasyProvider initialState={initialState} log validate>
+    <TodoList />
+    <FormDemo />
+    <TodoListReducer />
+  </EasyProvider>
+);

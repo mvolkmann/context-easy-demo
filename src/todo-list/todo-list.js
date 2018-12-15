@@ -16,6 +16,9 @@ function deleteTodo(context, id) {
   context.filter('todos', todo => todo.id !== id);
 }
 
+// Prevent form submit.
+const handleSubmit = e => e.preventDefault();
+
 function toggleDone(context, id) {
   context.map('todos', todo =>
     todo.id === id ? {...todo, done: !todo.done} : todo
@@ -33,9 +36,6 @@ export default function TodoList() {
     deleteCountRef.current++;
     console.log('You have deleted', deleteCountRef.current, 'todos.');
   }, []);
-
-  // Prevent form submit.
-  const handleSubmit = useCallback(e => e.preventDefault(), []);
 
   const handleToggleDone = useCallback(id => toggleDone(context, id), []);
 
