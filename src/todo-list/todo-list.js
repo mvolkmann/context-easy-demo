@@ -62,7 +62,7 @@ export default function TodoList() {
           <input
             type="checkbox"
             onChange={() => handleToggleDone(todo.id)}
-            value={todo.done}
+            checked={todo.done}
           />
           <span className={`done-${todo.done}`}>{todo.text}</span>
           <button className="delete-btn" onClick={() => handleDelete(todo.id)}>
@@ -71,11 +71,7 @@ export default function TodoList() {
         </div>
       ))}
       <EffectsDemo count={context.todos.length} />
-      <Percent
-        count={doneCount}
-        total={context.todos.length}
-        millis={Date.now()}
-      />
+      <Percent count={doneCount} total={context.todos.length} />
     </div>
   );
 }
