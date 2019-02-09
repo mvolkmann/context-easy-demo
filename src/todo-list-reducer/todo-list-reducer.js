@@ -1,4 +1,5 @@
-import React, {useCallback, useEffect, useReducer, useState} from 'react';
+import React, {useCallback, useReducer} from 'react';
+import useWindowWidth from '../window-width-hook';
 import './todo-list-reducer.scss';
 
 const initialState = {
@@ -8,20 +9,6 @@ const initialState = {
 };
 
 let lastId = 0;
-
-function useWindowWidth() {
-  const [width, setWidth] = useState(window.innerWidth);
-  useEffect(() => {
-    // setup steps
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => {
-      // cleanup steps
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-  return width;
-}
 
 function reducer(state, action) {
   const {text, todos} = state;
