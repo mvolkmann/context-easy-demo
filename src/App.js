@@ -11,10 +11,12 @@ const initialState = {
   todos: []
 };
 
-export default () => (
-  <EasyProvider initialState={initialState} log validate>
-    <TodoList />
-    <FormDemo />
-    <TodoListReducer />
-  </EasyProvider>
-);
+export default function App() {
+  return (
+    <EasyProvider initialState={initialState} log validate>
+      <TodoList />
+      <FormDemo />
+      <TodoListReducer />
+    </EasyProvider>
+  );
+}
