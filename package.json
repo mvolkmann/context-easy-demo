@@ -21,7 +21,7 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "context-easy": "^0.10.1",
+    "context-easy": "^0.10.3",
     "node-sass": "^4.11.0",
     "react": "16.8.1",
     "react-dom": "16.8.1",
